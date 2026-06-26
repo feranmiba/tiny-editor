@@ -12,7 +12,7 @@ A lightweight, framework-agnostic, and highly reusable rich text editor.
 ## Workspace Structure
 
 This project is a monorepo containing:
-- `packages/core`: The actual `@tiny-editor/core` package.
+- `packages/core`: The actual `@amiola_dev/tiny-editor-core` package.
 - `packages/playground`: A Vite-powered vanilla TypeScript playground to test the editor in a browser.
 
 ## Getting Started
@@ -37,7 +37,7 @@ This project is a monorepo containing:
 ## Usage
 
 ```typescript
-import { Editor, BoldCommand, ItalicCommand } from '@tiny-editor/core';
+import { Editor, BoldCommand, ItalicCommand } from '@amiola_dev/tiny-editor-core';
 
 // 1. Initialize the editor
 const editor = new Editor({
