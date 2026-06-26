@@ -8,3 +8,4 @@ export * from './commands/strikethrough';
 export * from './commands/code';
 export * from './commands/highlight';
 export * from './commands/superscript';
+export * from './commands/undo';

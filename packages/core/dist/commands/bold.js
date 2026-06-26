@@ -1,5 +1,6 @@
 import { getRange } from '../Selection';
 import { isInsideTag } from '../helper/isInsideTag';
+import { unwrapTag } from '../helper/unwrapTag';
 /**
  * Command module for Bold using custom DOM manipulation.
  */
@@ -11,9 +12,9 @@ export class BoldCommand {
         const range = getRange();
         if (!range || range.collapsed)
             return;
-        // If already bold → unwrap logic (later phase)
+        // If already bold → unwrap logic
         if (isInsideTag('strong')) {
-            console.log('Already bold - undo not implemented yet');
+            unwrapTag('strong');
             return;
         }
         const content = range.extractContents();

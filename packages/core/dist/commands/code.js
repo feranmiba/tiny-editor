@@ -1,4 +1,6 @@
 import { getRange } from '../Selection';
+import { isInsideTag } from '../helper/isInsideTag';
+import { unwrapTag } from '../helper/unwrapTag';
 export class CodeCommand {
     constructor() {
         this.name = 'code';
@@ -7,6 +9,10 @@ export class CodeCommand {
         const range = getRange();
         if (!range || range.collapsed)
             return;
+        if (isInsideTag('code')) {
+            unwrapTag('code');
+            return;
+        }
         const content = range.extractContents();
         const code = document.createElement('code');
         code.style.backgroundColor = '#f4f4f4';
