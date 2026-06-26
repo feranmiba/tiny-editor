@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiny Editor Playground</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Tiny Editor</h1>
+    
+    <div class="toolbar">
+      <button id="btn-undo" title="Undo">↶</button>
+      <button id="btn-bold" title="Bold"><b>B</b></button>
+      <button id="btn-italic" title="Italic"><i>I</i></button>
+      <button id="btn-underline" title="Underline"><u>U</u></button>
+      <button id="btn-strikethrough" title="Strikethrough"><s>S</s></button>
+      <button id="btn-code" title="Code"><code>&lt;/&gt;</code></button>
+      <button id="btn-highlight" title="Highlight"><mark>H</mark></button>
+      <button id="btn-superscript" title="Superscript">X<sup>2</sup></button>
+    </div>
+
+    <div id="editor-container"></div>
+  </div>
+
+  <script type="module" src="/main.ts"></script>
+</body>
+</html>

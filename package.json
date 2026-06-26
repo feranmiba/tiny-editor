@@ -1,0 +1,13 @@
+{
+  "name": "tiny-editor-workspace",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "vite serve packages/playground"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
