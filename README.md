@@ -1,60 +1,120 @@
-# Tiny Editor
+# ✏️ Tiny Editor
 
-A lightweight, framework-agnostic, and highly reusable rich text editor.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![Open Source](https://img.shields.io/badge/Open%20Source-%E2%9D%A4-red.svg)]()
+[![Zero dependencies](https://img.shields.io/badge/deps-zero-blue.svg)]()
 
-## Features
+A **lightweight, framework-agnostic, zero-dependency** rich text editor built entirely on native DOM APIs.
 
-- **Extremely Lightweight**: Uses standard native DOM APIs and `document.execCommand` where possible.
-- **Framework Agnostic**: Works perfectly in Vanilla JS, React, Vue, Svelte, or Angular.
-- **Pluggable Architecture**: Easily add and register your own commands.
-- **Built-in Commands**: Bold, Italic, Underline, Strikethrough, Code, Highlight, Superscript, and Undo.
+---
 
-## Workspace Structure
+## ✨ Features
 
-This project is a monorepo containing:
-- `packages/core`: The actual `light-text-editor` package.
-- `packages/playground`: A Vite-powered vanilla TypeScript playground to test the editor in a browser.
+| Category | Commands |
+|---|---|
+| **History** | Undo |
+| **Inline text** | Bold · Italic · Underline · Strikethrough · Superscript · Subscript |
+| **Inline decoration** | Inline code · Highlight |
+| **Blocks** | Heading (H1/H2/H3) · Blockquote · Ordered list · Unordered list |
+| **Media & links** | Insert image (from disk) · Insert / remove hyperlink |
 
-## Getting Started
+- 🪶 **Extremely lightweight** — zero npm dependencies, pure TypeScript
+- 🔌 **Pluggable** — register your own `Command` in two lines
+- 🌍 **Framework-agnostic** — works in Vanilla JS, React, Vue, Svelte, Angular
+- 🔒 **No `document.execCommand` abuse** — all formatting uses modern DOM APIs
+- 🖼️ **Live preview** — playground shows rendered output & raw HTML side-by-side
+- 📋 **Copy HTML** — one-click export of the editor content
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+---
 
-2. **Start the playground:**
-   ```bash
-   npm run dev
-   ```
-   This will start the Vite dev server for the playground.
+## 📦 Workspace Structure
 
-3. **Build the core package:**
-   ```bash
-   cd packages/core
-   npm run build
-   ```
+```
+tiny-editor/
+├── packages/
+│   ├── core/          # The editor library (publishable)
+│   └── playground/    # Vite-powered live demo
+├── LICENSE            # MIT
+└── README.md
+```
 
-## Usage
+---
+
+## 🚀 Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start the playground dev server
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
+
+---
+
+## 🔧 Usage
 
 ```typescript
-import { Editor, BoldCommand, ItalicCommand } from 'light-text-editor';
+import {
+  Editor,
+  BoldCommand,
+  ItalicCommand,
+  HeadingCommand,
+  ImageCommand,
+  LinkCommand,
+} from 'light-text-editor';
 
-// 1. Initialize the editor
+// 1. Initialise
 const editor = new Editor({
-  element: document.getElementById('editor-container'),
-  initialHTML: '<p>Hello World!</p>'
+  element: document.getElementById('editor'),
+  initialHTML: '<p>Hello <strong>world</strong>!</p>',
 });
 
-// 2. Register desired commands
+// 2. Register commands
 editor.registerCommand(new BoldCommand());
 editor.registerCommand(new ItalicCommand());
+editor.registerCommand(new HeadingCommand('h2'));
+editor.registerCommand(new ImageCommand());
+editor.registerCommand(new LinkCommand());
 
-// 3. Execute commands (e.g. from a button click)
+// 3. Trigger from buttons
 document.getElementById('bold-btn').addEventListener('click', () => {
   editor.exec('bold');
 });
+
+// 4. Get HTML output
+const html = editor.getHTML();
 ```
 
-## Contributing
+### Writing your own command
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details on how to set up your development environment and submit pull requests.
+```typescript
+import type { Command } from 'light-text-editor';
+
+export class RedTextCommand implements Command {
+  name = 'redText';
+
+  execute() {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return;
+    const range = sel.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement('span');
+    span.style.color = 'red';
+    span.appendChild(range.extractContents());
+    range.insertNode(span);
+  }
+}
+
+editor.registerCommand(new RedTextCommand());
+editor.exec('redText');
+```
+
+---
+
+## 📄 License
+
+[MIT](./LICENSE) © 2026 Tiny Editor contributors

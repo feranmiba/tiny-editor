@@ -3,27 +3,27 @@ import { getRange } from '../Selection';
 import { isInsideTag } from '../helper/isInsideTag';
 import { unwrapTag } from '../helper/unwrapTag';
 
-export class SuperscriptCommand implements Command {
-  name = 'superscript';
+export class SubscriptCommand implements Command {
+  name = 'subscript';
 
   execute(): void {
     const range = getRange();
     if (!range || range.collapsed) return;
 
-    if (isInsideTag('sup')) {
-      unwrapTag('sup');
+    if (isInsideTag('sub')) {
+      unwrapTag('sub');
       return;
     }
 
     const content = range.extractContents();
-    const sup = document.createElement('sup');
-    sup.appendChild(content);
-    range.insertNode(sup);
+    const sub = document.createElement('sub');
+    sub.appendChild(content);
+    range.insertNode(sub);
 
     const selection = window.getSelection();
     selection?.removeAllRanges();
     const newRange = document.createRange();
-    newRange.setStartAfter(sup);
+    newRange.setStartAfter(sub);
     newRange.collapse(true);
     selection?.addRange(newRange);
   }

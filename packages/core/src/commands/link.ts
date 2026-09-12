@@ -3,27 +3,34 @@ import { getRange } from '../Selection';
 import { isInsideTag } from '../helper/isInsideTag';
 import { unwrapTag } from '../helper/unwrapTag';
 
-export class SuperscriptCommand implements Command {
-  name = 'superscript';
+export class LinkCommand implements Command {
+  name = 'link';
 
   execute(): void {
-    const range = getRange();
-    if (!range || range.collapsed) return;
-
-    if (isInsideTag('sup')) {
-      unwrapTag('sup');
+    // If inside a link, unlink
+    if (isInsideTag('a')) {
+      unwrapTag('a');
       return;
     }
 
+    const range = getRange();
+    if (!range || range.collapsed) return;
+
+    const url = window.prompt('Enter URL:', 'https://');
+    if (!url || url.trim() === '' || url === 'https://') return;
+
     const content = range.extractContents();
-    const sup = document.createElement('sup');
-    sup.appendChild(content);
-    range.insertNode(sup);
+    const a = document.createElement('a');
+    a.href = url.trim();
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.appendChild(content);
+    range.insertNode(a);
 
     const selection = window.getSelection();
     selection?.removeAllRanges();
     const newRange = document.createRange();
-    newRange.setStartAfter(sup);
+    newRange.setStartAfter(a);
     newRange.collapse(true);
     selection?.addRange(newRange);
   }

@@ -3,26 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiny Editor Playground</title>
+  <title>Tiny Editor — Playground</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Tiny Editor</h1>
-    
-    <div class="toolbar">
-      <button id="btn-undo" title="Undo">↶</button>
-      <button id="btn-bold" title="Bold"><b>B</b></button>
-      <button id="btn-italic" title="Italic"><i>I</i></button>
-      <button id="btn-underline" title="Underline"><u>U</u></button>
-      <button id="btn-strikethrough" title="Strikethrough"><s>S</s></button>
-      <button id="btn-code" title="Code"><code>&lt;/&gt;</code></button>
-      <button id="btn-highlight" title="Highlight"><mark>H</mark></button>
-      <button id="btn-superscript" title="Superscript">X<sup>2</sup></button>
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="logo">✏️ <strong>tiny-editor</strong></span>
+      <nav class="header-links">
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+          <!-- GitHub SVG icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-label="GitHub">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.26.82-.577
+              0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757
+              -1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304
+              3.492.997.108-.775.418-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93
+              0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322
+              3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405
+              2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84
+              1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81
+              2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565
+              21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <span class="badge">Open Source</span>
+      </nav>
     </div>
+  </header>
 
-    <div id="editor-container"></div>
-  </div>
+  <main class="layout">
+    <!-- Editor panel -->
+    <section class="panel editor-panel" aria-label="Rich text editor">
+      <div class="panel-header">Editor</div>
+
+      <div class="toolbar" role="toolbar" aria-label="Formatting options">
+
+        <!-- History -->
+        <div class="toolbar-group">
+          <button id="btn-undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+        </div>
+
+        <div class="toolbar-sep" role="separator"></div>
+
+        <!-- Text style -->
+        <div class="toolbar-group">
+          <button id="btn-bold"          title="Bold"          aria-label="Bold"><b>B</b></button>
+          <button id="btn-italic"        title="Italic"        aria-label="Italic"><i>I</i></button>
+          <button id="btn-underline"     title="Underline"     aria-label="Underline"><u>U</u></button>
+          <button id="btn-strikethrough" title="Strikethrough" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+
+        <div class="toolbar-sep" role="separator"></div>
+
+        <!-- Inline -->
+        <div class="toolbar-group">
+          <button id="btn-code"          title="Inline code"  aria-label="Code"><code>&lt;/&gt;</code></button>
+          <button id="btn-highlight"     title="Highlight"    aria-label="Highlight"><mark>H</mark></button>
+          <button id="btn-superscript"   title="Superscript"  aria-label="Superscript">X<sup>2</sup></button>
+          <button id="btn-subscript"     title="Subscript"    aria-label="Subscript">X<sub>2</sub></button>
+        </div>
+
+        <div class="toolbar-sep" role="separator"></div>
+
+        <!-- Blocks -->
+        <div class="toolbar-group">
+          <button id="btn-heading-h1"    title="Heading 1"    aria-label="Heading 1">H1</button>
+          <button id="btn-heading-h2"    title="Heading 2"    aria-label="Heading 2">H2</button>
+          <button id="btn-heading-h3"    title="Heading 3"    aria-label="Heading 3">H3</button>
+          <button id="btn-blockquote"    title="Blockquote"   aria-label="Blockquote">❝</button>
+          <button id="btn-orderedList"   title="Ordered list" aria-label="Ordered list">1.</button>
+          <button id="btn-unorderedList" title="Bullet list"  aria-label="Bullet list">•</button>
+        </div>
+
+        <div class="toolbar-sep" role="separator"></div>
+
+        <!-- Media & links -->
+        <div class="toolbar-group">
+          <button id="btn-link"  title="Insert / remove link" aria-label="Link">🔗</button>
+          <button id="btn-image" title="Insert image"         aria-label="Insert image">🖼️</button>
+        </div>
+
+      </div>
+
+      <div id="editor-container" role="textbox" aria-multiline="true" aria-label="Document editor"></div>
+    </section>
+
+    <!-- Preview panel -->
+    <section class="panel preview-panel" aria-label="HTML preview">
+      <div class="panel-header">
+        Preview
+        <button id="btn-copy-html" class="copy-btn" title="Copy HTML to clipboard">Copy HTML</button>
+      </div>
+      <iframe id="preview-frame" title="Rendered preview" sandbox="allow-same-origin"></iframe>
+      <pre id="html-source" aria-label="HTML source"></pre>
+    </section>
+  </main>
 
   <script type="module" src="/main.ts"></script>
 </body>

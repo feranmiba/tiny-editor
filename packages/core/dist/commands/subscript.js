@@ -1,26 +1,26 @@
 import { getRange } from '../Selection';
 import { isInsideTag } from '../helper/isInsideTag';
 import { unwrapTag } from '../helper/unwrapTag';
-export class StrikethroughCommand {
+export class SubscriptCommand {
     constructor() {
-        this.name = 'strikethrough';
+        this.name = 'subscript';
     }
     execute() {
         const range = getRange();
         if (!range || range.collapsed)
             return;
-        if (isInsideTag('s')) {
-            unwrapTag('s');
+        if (isInsideTag('sub')) {
+            unwrapTag('sub');
             return;
         }
         const content = range.extractContents();
-        const s = document.createElement('s');
-        s.appendChild(content);
-        range.insertNode(s);
+        const sub = document.createElement('sub');
+        sub.appendChild(content);
+        range.insertNode(sub);
         const selection = window.getSelection();
         selection === null || selection === void 0 ? void 0 : selection.removeAllRanges();
         const newRange = document.createRange();
-        newRange.setStartAfter(s);
+        newRange.setStartAfter(sub);
         newRange.collapse(true);
         selection === null || selection === void 0 ? void 0 : selection.addRange(newRange);
     }
