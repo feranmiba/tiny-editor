@@ -1,4 +1,5 @@
 import { EditorOptions, Command } from './types';
+import { ImageResizer } from './ImageResizer';
 
 const INLINE_FORMAT_TAGS = new Set(['STRONG', 'EM', 'U', 'S', 'CODE', 'MARK', 'SUP', 'B', 'I', 'STRIKE']);
 
@@ -8,6 +9,7 @@ const BLOCK_TAGS = new Set(['P', 'DIV', 'LI', 'BLOCKQUOTE', 'H1', 'H2', 'H3', 'H
 export class Editor {
   private element: HTMLElement;
   private commands: Map<string, Command> = new Map();
+  private imageResizer: ImageResizer;
 
   constructor(options: EditorOptions) {
     this.element = options.element;
@@ -18,6 +20,8 @@ export class Editor {
     if (options.initialHTML) {
       this.setHTML(options.initialHTML);
     }
+
+    this.imageResizer = new ImageResizer(this.element);
 
     this.element.addEventListener('keydown', this.handleKeyDown.bind(this));
   }

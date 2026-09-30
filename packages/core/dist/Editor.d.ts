@@ -2,6 +2,7 @@ import { EditorOptions, Command } from './types';
 export declare class Editor {
     private element;
     private commands;
+    private imageResizer;
     constructor(options: EditorOptions);
     /**
      * Intercepts Enter inside any inline formatting tag.

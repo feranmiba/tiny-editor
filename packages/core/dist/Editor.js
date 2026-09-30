@@ -1,3 +1,4 @@
+import { ImageResizer } from './ImageResizer';
 const INLINE_FORMAT_TAGS = new Set(['STRONG', 'EM', 'U', 'S', 'CODE', 'MARK', 'SUP', 'B', 'I', 'STRIKE']);
 const BLOCK_TAGS = new Set(['P', 'DIV', 'LI', 'BLOCKQUOTE', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'TD', 'TH']);
 export class Editor {
@@ -9,6 +10,7 @@ export class Editor {
         if (options.initialHTML) {
             this.setHTML(options.initialHTML);
         }
+        this.imageResizer = new ImageResizer(this.element);
         this.element.addEventListener('keydown', this.handleKeyDown.bind(this));
     }
     /**

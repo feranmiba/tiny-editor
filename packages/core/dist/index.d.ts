@@ -16,3 +16,5 @@ export * from './commands/link';
 export * from './commands/blockquote';
 export * from './commands/heading';
 export * from './commands/image';
+export * from './commands/align';
+export * from './ImageResizer';
