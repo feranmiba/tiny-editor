@@ -1,6 +1,6 @@
 {
   "name": "light-text-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight, zero-dependency, framework-agnostic rich text editor. Bold, italic, headings, lists, links, image insert, blockquote, and more.",
   "keywords": ["rich-text-editor", "editor", "contenteditable", "lightweight", "wysiwyg", "zero-dependency", "typescript"],
   "main": "./dist/index.js",
